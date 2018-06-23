@@ -24,10 +24,7 @@ namespace LipheBot
                 while(automatedMessagingSystem.DequeueMessage(out string theMessage))
                 {
                     var message = ($"{DateTime.Now.ToShortTimeString()} - {theMessage}");
-                    foreach (var chatClient in connectedClients)
-                    {
-                        Console.WriteLine(chatClient);
-                    }
+                    Console.WriteLine(message);
                 }
             }
         }

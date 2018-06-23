@@ -19,7 +19,9 @@ namespace LipheBot.Core
 
         public void CheckMessages(DateTime currentTime)
         {
-            var messagesToQueue = ManagedMessages[0];
+            var messagesToQueue = ManagedMessages.Where(m => m.IsItYourTimeToDisplay(currentTime)).Select(m => m.GetMessageInstance(currentTime));
+            QueuedMessages.AddRange(messagesToQueue);
+
         }
 
         public bool DequeueMessage(out string message)
