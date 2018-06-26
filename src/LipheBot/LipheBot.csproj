@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LipheBot.Core\LipheBot.Core.csproj" />
+    <ProjectReference Include="..\LipheBot.Infra.Twitch\LipheBot.Infra.Twitch.csproj" />
   </ItemGroup>
 
 </Project>

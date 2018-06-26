@@ -8,7 +8,7 @@ namespace LipheBot.Core
     {
         
         void SendMessage(string message);
-        void SendDirectMessage(string username,string message);
+        //void SendDirectMessage(string username,string message);
 
     }
 }

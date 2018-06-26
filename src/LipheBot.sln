@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LipheBot", "LipheBot\LipheBot\LipheBot.csproj", "{2C9259EA-040E-4654-BD5A-7D2AC7D5BC9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LipheBot", "LipheBot\LipheBot.csproj", "{03614844-1F1F-42D4-9095-FC9F73108B3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LipheBot.Core", "LipheBot\LipheBot.Core\LipheBot.Core.csproj", "{46A9AF7C-F49B-42A0-9254-71BEBC4A199F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LipheBot.Core", "LipheBot.Core\LipheBot.Core.csproj", "{0FB55511-909B-46C8-8B36-ACBB0F26DA9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LipheBot.Infra.Twitch", "LipheBot\LipheBot.Infra.Twitch\LipheBot.Infra.Twitch.csproj", "{CED4126A-3AE4-422B-AF67-F7D297A376FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LipheBot.Infra.Twitch", "LipheBot.Infra.Twitch\LipheBot.Infra.Twitch.csproj", "{92718A60-58A9-4DE8-8977-4FA09464D59D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2C9259EA-040E-4654-BD5A-7D2AC7D5BC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C9259EA-040E-4654-BD5A-7D2AC7D5BC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C9259EA-040E-4654-BD5A-7D2AC7D5BC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C9259EA-040E-4654-BD5A-7D2AC7D5BC9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46A9AF7C-F49B-42A0-9254-71BEBC4A199F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46A9AF7C-F49B-42A0-9254-71BEBC4A199F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46A9AF7C-F49B-42A0-9254-71BEBC4A199F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46A9AF7C-F49B-42A0-9254-71BEBC4A199F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CED4126A-3AE4-422B-AF67-F7D297A376FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CED4126A-3AE4-422B-AF67-F7D297A376FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CED4126A-3AE4-422B-AF67-F7D297A376FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CED4126A-3AE4-422B-AF67-F7D297A376FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03614844-1F1F-42D4-9095-FC9F73108B3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03614844-1F1F-42D4-9095-FC9F73108B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03614844-1F1F-42D4-9095-FC9F73108B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03614844-1F1F-42D4-9095-FC9F73108B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FB55511-909B-46C8-8B36-ACBB0F26DA9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FB55511-909B-46C8-8B36-ACBB0F26DA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FB55511-909B-46C8-8B36-ACBB0F26DA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FB55511-909B-46C8-8B36-ACBB0F26DA9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92718A60-58A9-4DE8-8977-4FA09464D59D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92718A60-58A9-4DE8-8977-4FA09464D59D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92718A60-58A9-4DE8-8977-4FA09464D59D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92718A60-58A9-4DE8-8977-4FA09464D59D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
