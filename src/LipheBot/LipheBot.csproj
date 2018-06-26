@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LipheBot.Core\LipheBot.Core.csproj" />
-    <ProjectReference Include="..\LipheBot.Infra.Twitch\LipheBot.Infra.Twitch.csproj" />
+    <ProjectReference Include="..\Liphebot.Infra.Twitch\Liphebot.Infra.Twitch.csproj" />
   </ItemGroup>
 
 </Project>

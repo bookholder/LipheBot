@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
-namespace LipheBot.Core
+namespace LipheBot.Core.Automation
 {
     public class AutomatedMessagingSystem
     {

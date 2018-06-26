@@ -5,6 +5,7 @@ using LipheBot.Core;
 using LipheBot.Infra.Twitch;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using LipheBot.Core.Automation;
 
 namespace LipheBot
 {
@@ -52,10 +53,14 @@ namespace LipheBot
                 new ConsoleChatClient(),
                 new TwitchChatClient(),
             };
+            //TODO: Connect to each here
             Thread.Sleep(1000);
             return connectChatClients;
            
+            
         }
+
+
         
     }
 }
