@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LipheBot.Core
+namespace LipheBot.Core.Automation
 {
     public class IntervalTriggeredMessage : IAutomatedMessage
     {

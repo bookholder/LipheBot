@@ -26,7 +26,7 @@ namespace LipheBot.Infra.Twitch
         {
 
              _joinedChannel = new JoinedChannel("Pr0blems_");
-             var credentials = new ConnectionCredentials("LipheBot", "l4d6xao3m9yfj768qd2kf0tdapqtg1"); 
+             var credentials = new ConnectionCredentials("LipheBot", ""); 
             _twitchClient = new TwitchClient();
             _twitchClient.Initialize(credentials, _joinedChannel.Channel);
             _twitchClient.Connect();
