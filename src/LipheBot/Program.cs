@@ -9,9 +9,12 @@ using LipheBot.Core.Automation;
 
 namespace LipheBot
 {
+
     class Program
     {
         public static IConfiguration Configuration { get; set; }
+        public TwitchChatClient Settings;
+        
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
@@ -21,13 +24,17 @@ namespace LipheBot
             Configuration = builder.Build();
 
             var configurationSection = Configuration.GetSection("TwitchChatClient");
-
+ 
             Console.WriteLine("Initializing LipheBot...");
             Console.WriteLine("To Exit, Press CTRL + L");
             var automatedMessagingSystem = new AutomatedMessagingSystem();
             var intervalTriggeredMessage = new IntervalTriggeredMessage { DelayInMinutes = 1, Message = "Hello, I am Liphe the bot" };
             automatedMessagingSystem.Publish(intervalTriggeredMessage);
             List<IChatClient> connectedClients = ConnectChatClients();
+
+
+
+
 
             while (true)
             {
@@ -48,10 +55,11 @@ namespace LipheBot
 
         private static List<IChatClient> ConnectChatClients()
         {
+            
             var connectChatClients = new List<IChatClient>
             {
                 new ConsoleChatClient(),
-                new TwitchChatClient(),
+                new TwitchChatClient($"{Configuration["TwitchChatClient:twitchChannel"]}",$"{Configuration["TwitchChatClient:twitchUsername"]}",$"{Configuration["TwitchChatClient:twitchOAuth"]}" ),
             };
             //TODO: Connect to each here
             Thread.Sleep(1000);
