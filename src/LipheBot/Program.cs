@@ -1,18 +1,21 @@
-﻿using System;
-using System.Threading;
-using System.Collections.Generic;
-using LipheBot.Core;
+﻿using LipheBot.Core;
+using LipheBot.Core.Automation;
 using LipheBot.Infra.Twitch;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using LipheBot.Core.Automation;
+using System.Threading;
 
 namespace LipheBot
 {
+
     class Program
     {
         public static IConfiguration Configuration { get; set; }
-        static void Main(string[] args)
+        
+
+        private static void Main()
         {
             var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -20,14 +23,17 @@ namespace LipheBot
 
             Configuration = builder.Build();
 
-            var configurationSection = Configuration.GetSection("TwitchChatClient");
-
+            
             Console.WriteLine("Initializing LipheBot...");
             Console.WriteLine("To Exit, Press CTRL + L");
             var automatedMessagingSystem = new AutomatedMessagingSystem();
             var intervalTriggeredMessage = new IntervalTriggeredMessage { DelayInMinutes = 1, Message = "Hello, I am Liphe the bot" };
             automatedMessagingSystem.Publish(intervalTriggeredMessage);
             List<IChatClient> connectedClients = ConnectChatClients();
+
+
+
+
 
             while (true)
             {
@@ -36,24 +42,31 @@ namespace LipheBot
                 while (automatedMessagingSystem.DequeueMessage(out string theMessage))
                 {
                     var message = ($"{DateTime.Now.ToShortTimeString()} - {theMessage}");
-                    foreach (IChatClient item in connectedClients)
+                    foreach (var item in connectedClients)
                     {
                         item.SendMessage(message);
                     }
 
-
+                   
                 }
             }
+            
         }
 
         private static List<IChatClient> ConnectChatClients()
         {
+            TwitchClientSettings settings = new TwitchClientSettings($"{Configuration["TwitchChatClient:twitchUsername"]}", $"{Configuration["TwitchChatClient:twitchOAuth"]}", $"{Configuration["TwitchChatClient:twitchChannel"]}");
             var connectChatClients = new List<IChatClient>
             {
                 new ConsoleChatClient(),
-                new TwitchChatClient(),
+                new TwitchChatClient(settings),
             };
-            //TODO: Connect to each here
+           
+            foreach (var clients in connectChatClients)
+            {
+                clients.Connect();
+            }
+            
             Thread.Sleep(1000);
             return connectChatClients;
            

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace LipheBot.Core
 {
@@ -8,6 +6,8 @@ namespace LipheBot.Core
     {
         
         void SendMessage(string message);
+
+        void Connect();
         //void SendDirectMessage(string username,string message);
 
     }

@@ -11,5 +11,10 @@ namespace LipheBot
         {
             Console.WriteLine(message);
         }
+
+        public void Connect()
+        {
+
+        }
     }
 }
