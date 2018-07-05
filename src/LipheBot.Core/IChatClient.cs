@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using System.Threading.Tasks;
 
 namespace LipheBot.Core
 {
@@ -9,13 +10,13 @@ namespace LipheBot.Core
         
         void SendMessage(string message);
 
-        void Connect();  //TODO: Consider changing this to a task
+        Task Connect();  
 
         //void SendDirectMessage(string username,string message);
-        void Disconnect();
+        Task Disconnect();
 
-        void WireUpCommandReceivedEventHandler(Action<IChatClient,CommandReceivedEventArgs> eventHandler);
+        
 
-
+        event EventHandler<CommandReceivedEventArgs> OnCommandReceived;
     }
 }

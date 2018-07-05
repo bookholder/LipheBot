@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading.Tasks;
 using LipheBot.Core;
 
 namespace LipheBot
@@ -8,19 +8,21 @@ namespace LipheBot
     {
         public void SendMessage(string message) => Console.WriteLine(message);
 
-        public void Connect()
+        public async Task Connect()
         {
-
+            //
         }
 
-        public void Disconnect()
+        public async Task Disconnect()
         {
-            throw new NotImplementedException();
+            //
         }
+
+        public event EventHandler<CommandReceivedEventArgs> OnCommandReceived;
 
         public void WireUpCommandReceivedEventHandler(Action<IChatClient, CommandReceivedEventArgs> eventHandler)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

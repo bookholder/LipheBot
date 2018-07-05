@@ -17,7 +17,7 @@ namespace LipheBot.Core
 
         public void Run()
         {
-            WireUpEventHandlers();
+           
             foreach (var chatclient in _chatClients)
             {
                 chatclient.Connect();
@@ -25,9 +25,15 @@ namespace LipheBot.Core
             }
         }
 
-        private void WireUpEventHandlers()
+        private void CommandReceivedHandler(IChatClient chatClient, CommandReceivedEventArgs args)
         {
-            throw new NotImplementedException();
+            
+            switch (args.CommandWord)
+            {
+                case "noob":
+                    chatClient.SendMessage("No, you're a noob!");
+                break;
+            }
         }
 
         public void DisconnectChatClients()

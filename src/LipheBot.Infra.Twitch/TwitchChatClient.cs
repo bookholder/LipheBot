@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using LipheBot.Core;
 using TwitchLib.Client;
 using TwitchLib.Client.Models;
@@ -14,15 +15,12 @@ namespace LipheBot.Infra.Twitch
     public class TwitchChatClient : IChatClient
     {
         
-        
-        
-
         private readonly ITwitchClient _twitchClient;
         //private readonly TwitchClientSettings _settings;
         private  readonly JoinedChannel _joinedChannel;
         
-        //private TaskCompletionSource<bool> _connectionCompletionTask = new TaskCompletionSource<bool>();
-        //private TaskCompletionSource<bool> _disconnectionCompletionTask = new TaskCompletionSource<bool>();
+        private readonly TaskCompletionSource<bool> _connectionCompletionTask = new TaskCompletionSource<bool>();
+        private readonly TaskCompletionSource<bool> _disconnectionCompletionTask = new TaskCompletionSource<bool>();
         private bool _isReady;
 
 
@@ -33,47 +31,57 @@ namespace LipheBot.Infra.Twitch
              var credentials = new ConnectionCredentials(settings.TwitchUsername, settings.TwitchBotOAuth); 
             _twitchClient = new TwitchClient();
             _twitchClient.Initialize(credentials, _joinedChannel.Channel);
-            
+            _twitchClient.OnChatCommandReceived += ChatCommandReceived;
             _twitchClient.OnNewSubscriber += TwitchClientOnNewSubscriber;
-            _twitchClient.OnChatCommandReceived += TwitchClientOnChatCommandReceived;
+            
+            
 
         }
 
-        private void TwitchClientOnChatCommandReceived(object sender, OnChatCommandReceivedArgs onCommandEventArgs)
-        {
-            switch (onCommandEventArgs.Command.CommandText)
-            {
-                case "noob":
-                    SendMessage("No, You're a noob!");
-                    break;
-            }
-        }
+        //private void _twitchClient_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs onChatCommand)
+        //{
+        //    switch (onChatCommand.Command.CommandText)
+        //    {
+        //        case "noob":
+        //            SendMessage("No, you're a noob!");
+        //            break;
+                
+        //    }
+        //}
 
-        public void Connect()
+        public async Task Connect()
         {
             _twitchClient.Connect();
             _twitchClient.OnConnected += TwitchClientOnConnected;
-            
-            
-      
+
+            await _connectionCompletionTask.Task;
+
+
         }
 
-        public void Disconnect()
+        public async Task Disconnect()
         {
+
             _twitchClient.Disconnect();
             _twitchClient.OnDisconnected += TwitchClientOnDisconnected;
+
+            await _disconnectionCompletionTask.Task;
+
         }
 
-        public void WireUpCommandReceivedEventHandler(Action<IChatClient, CommandReceivedEventArgs> eventHandler)
+        private void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            _twitchClient.OnChatCommandReceived += (sender, args) => eventHandler(this, new CommandReceivedEventArgs());
+            OnCommandReceived?.Invoke(this,e.ToCommandReceivedEventArgs());
         }
 
-       
+        
+
 
         private void TwitchClientOnDisconnected(object sender, OnDisconnectedArgs e)
         {
+            
             SendMessage("Liphe is leaving for now, chill out");
+            
         }
 
         private void TwitchClientOnNewSubscriber(object sender, OnNewSubscriberArgs e)
@@ -84,6 +92,7 @@ namespace LipheBot.Infra.Twitch
         private void TwitchClientOnConnected(object sender, OnConnectedArgs e)
         {
             _isReady = true;
+            _twitchClient.OnConnected -= TwitchClientOnConnected;
             SendMessage("LipheBot has arrived!");
         }
 
@@ -99,9 +108,9 @@ namespace LipheBot.Infra.Twitch
 
 
 
-       
+        public event EventHandler<CommandReceivedEventArgs> OnCommandReceived;
 
-       
-            
+
+
     }
 }
