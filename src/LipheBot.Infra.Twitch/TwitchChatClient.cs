@@ -1,4 +1,5 @@
-﻿using LipheBot.Core;
+﻿using System;
+using LipheBot.Core;
 using TwitchLib.Client;
 using TwitchLib.Client.Models;
 using TwitchLib.Client.Events;
@@ -52,7 +53,27 @@ namespace LipheBot.Infra.Twitch
         {
             _twitchClient.Connect();
             _twitchClient.OnConnected += TwitchClientOnConnected;
+            
+            
       
+        }
+
+        public void Disconnect()
+        {
+            _twitchClient.Disconnect();
+            _twitchClient.OnDisconnected += TwitchClientOnDisconnected;
+        }
+
+        public void WireUpCommandReceivedEventHandler(Action<IChatClient, CommandReceivedEventArgs> eventHandler)
+        {
+            _twitchClient.OnChatCommandReceived += (sender, args) => eventHandler(this, new CommandReceivedEventArgs());
+        }
+
+       
+
+        private void TwitchClientOnDisconnected(object sender, OnDisconnectedArgs e)
+        {
+            SendMessage("Liphe is leaving for now, chill out");
         }
 
         private void TwitchClientOnNewSubscriber(object sender, OnNewSubscriberArgs e)
@@ -71,6 +92,7 @@ namespace LipheBot.Infra.Twitch
             if(_isReady)
             {
                 _twitchClient.SendMessage(_joinedChannel,message);
+                
             }
            
         }

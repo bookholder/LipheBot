@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace LipheBot.Core
 {
     public interface IChatClient
@@ -7,8 +9,13 @@ namespace LipheBot.Core
         
         void SendMessage(string message);
 
-        void Connect();
+        void Connect();  //TODO: Consider changing this to a task
+
         //void SendDirectMessage(string username,string message);
+        void Disconnect();
+
+        void WireUpCommandReceivedEventHandler(Action<IChatClient,CommandReceivedEventArgs> eventHandler);
+
 
     }
 }
