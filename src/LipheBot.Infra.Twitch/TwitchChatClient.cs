@@ -1,8 +1,4 @@
 ﻿using LipheBot.Core;
-using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using TwitchLib.Client;
 using TwitchLib.Client.Models;
 using TwitchLib.Client.Events;
@@ -37,20 +33,29 @@ namespace LipheBot.Infra.Twitch
             _twitchClient = new TwitchClient();
             _twitchClient.Initialize(credentials, _joinedChannel.Channel);
             
-            
-            
+            _twitchClient.OnNewSubscriber += TwitchClientOnNewSubscriber;
+            _twitchClient.OnChatCommandReceived += TwitchClientOnChatCommandReceived;
+
+        }
+
+        private void TwitchClientOnChatCommandReceived(object sender, OnChatCommandReceivedArgs onCommandEventArgs)
+        {
+            switch (onCommandEventArgs.Command.CommandText)
+            {
+                case "noob":
+                    SendMessage("No, You're a noob!");
+                    break;
+            }
         }
 
         public void Connect()
         {
             _twitchClient.Connect();
             _twitchClient.OnConnected += TwitchClientOnConnected;
-            _twitchClient.OnNewSubscriber += _twitchClient_OnNewSubscriber;
-            
-
+      
         }
 
-        private void _twitchClient_OnNewSubscriber(object sender, OnNewSubscriberArgs e)
+        private void TwitchClientOnNewSubscriber(object sender, OnNewSubscriberArgs e)
         {
             throw new System.NotImplementedException();
         }
@@ -69,6 +74,8 @@ namespace LipheBot.Infra.Twitch
             }
            
         }
+
+
 
        
 
