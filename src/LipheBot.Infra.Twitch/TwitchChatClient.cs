@@ -46,7 +46,7 @@ namespace LipheBot.Infra.Twitch
             switch (e.ChatMessage.Message)
             {
                 case "noob":
-                    SendMessage($"{e.ChatMessage.Username} No, You're a noob!");
+                    SendMessage($"{e.ChatMessage.Username} No, You're a noob! Kappa");
                     break;
             }//TODO: A way to do this outside of the twitch class.
         }
