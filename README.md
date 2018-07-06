@@ -1,2 +1,2 @@
 # LipheBot
-This project is just for me to learn to build a twitch bot, I'm currently not that experienced, but I have a passion of learning programming and this is a way for me to compare two of my hobbies.
+For educational and expiremental purposes, I am utilizing the TwitchLib API to create my own Twitch bot. The project is currently a Console App but i'd like to create a GUI for it later on.
