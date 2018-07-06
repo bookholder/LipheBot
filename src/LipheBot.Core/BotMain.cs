@@ -18,20 +18,36 @@ namespace LipheBot.Core
         public void Run()
         {
            
+            ConnectChantClients();
+            WireUpEventHandlers();
+            
+        }
+
+        private void ConnectChantClients()
+        {
             foreach (var chatclient in _chatClients)
             {
                 chatclient.Connect();
-                
             }
         }
+
+        private void WireUpEventHandlers()
+        {
+            foreach (var chatclient in _chatClients)
+            {
+                chatclient.WireUpCommandReceivedUpEventHandler(CommandReceivedHandler);
+            }
+        }
+
+        
 
         private void CommandReceivedHandler(IChatClient chatClient, CommandReceivedEventArgs args)
         {
             
             switch (args.CommandWord)
             {
-                case "noob":
-                    chatClient.SendMessage("No, you're a noob!");
+                case "liphe":
+                    chatClient.SendMessage($"@{args.Username}, I'm still in devolpment");
                 break;
             }
         }

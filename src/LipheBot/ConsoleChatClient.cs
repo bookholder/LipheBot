@@ -18,6 +18,11 @@ namespace LipheBot
             //
         }
 
+        public void WireUpCommandReceivedUpEventHandler(Action<IChatClient, CommandReceivedEventArgs> eventHandler)
+        {
+            //
+        }
+
         public event EventHandler<CommandReceivedEventArgs> OnCommandReceived;
 
         public void WireUpCommandReceivedEventHandler(Action<IChatClient, CommandReceivedEventArgs> eventHandler)

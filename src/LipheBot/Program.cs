@@ -12,28 +12,17 @@ namespace LipheBot
     class Program
     {
         private static BotMain _lipheBot;
-      
+
         public static IConfiguration Configuration { get; set; }
 
 
         private static void Main()
         {
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-
-            Configuration = builder.Build();
-
-
-
+            InitializeConfiguration();
             InitializeBot();
-            Console.WriteLine("Initializing configuration..");
+            
             Console.Write("Press ESC key to quit");
-
-
-
-
+            
             while (true)
 
             {
@@ -45,13 +34,17 @@ namespace LipheBot
 
 
 
-       
+
 
         private static void InitializeBot()
         {
             Console.WriteLine("Initializing LipheBot...");
-            TwitchClientSettings settings = new TwitchClientSettings($"{Configuration["TwitchChatClient:twitchUsername"]}", $"{Configuration["TwitchChatClient:twitchOAuth"]}", $"{Configuration["TwitchChatClient:twitchChannel"]}");
+            TwitchClientSettings settings = new TwitchClientSettings(
+                $"{Configuration["TwitchChatClient:twitchUsername"]}",
+                $"{Configuration["TwitchChatClient:twitchOAuth"]}",
+                $"{Configuration["TwitchChatClient:twitchChannel"]}");
             List<IChatClient> chatClients = new List<IChatClient>
+
             {
                 new ConsoleChatClient(),
                 new TwitchChatClient(settings),
@@ -59,11 +52,21 @@ namespace LipheBot
             _lipheBot = new BotMain(chatClients);
 
             _lipheBot.Run();
-            
+
         }
 
-        
-        private static void ConsoleCommands(ConsoleKey key)
+        private static void InitializeConfiguration()
+        {
+            Console.WriteLine("Initializing configuration..");
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            Configuration = builder.Build();
+        }
+
+
+    private static void ConsoleCommands(ConsoleKey key)
         {
             switch (key)
             {

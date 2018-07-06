@@ -10,6 +10,7 @@ namespace LipheBot.Infra.Twitch
             var commandReceivedEventArgs = new CommandReceivedEventArgs
             {
                 CommandWord = src.Command.CommandText,
+                Username = src.Command.ChatMessage.Username,
             };
             return commandReceivedEventArgs;
         }

@@ -23,6 +23,7 @@ namespace LipheBot.Infra.Twitch
         private readonly TaskCompletionSource<bool> _disconnectionCompletionTask = new TaskCompletionSource<bool>();
         private bool _isReady;
 
+        
 
         public TwitchChatClient(TwitchClientSettings settings)
         {
@@ -31,23 +32,24 @@ namespace LipheBot.Infra.Twitch
              var credentials = new ConnectionCredentials(settings.TwitchUsername, settings.TwitchBotOAuth); 
             _twitchClient = new TwitchClient();
             _twitchClient.Initialize(credentials, _joinedChannel.Channel);
-            _twitchClient.OnChatCommandReceived += ChatCommandReceived;
-            _twitchClient.OnNewSubscriber += TwitchClientOnNewSubscriber;
-            
-            
-
+            _twitchClient.OnMessageReceived += _twitchClient_OnMessageReceived;
+            _twitchClient.OnChatCommandReceived += _twitchClient_OnChatCommandReceived;
         }
 
-        //private void _twitchClient_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs onChatCommand)
-        //{
-        //    switch (onChatCommand.Command.CommandText)
-        //    {
-        //        case "noob":
-        //            SendMessage("No, you're a noob!");
-        //            break;
-                
-        //    }
-        //}
+        private void _twitchClient_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
+        {
+            
+        }
+
+        private void _twitchClient_OnMessageReceived(object sender, OnMessageReceivedArgs e)
+        {
+            switch (e.ChatMessage.Message)
+            {
+                case "noob":
+                    SendMessage($"{e.ChatMessage.Username} No, You're a noob!");
+                    break;
+            }//TODO: A way to do this outside of the twitch class.
+        }
 
         public async Task Connect()
         {
@@ -69,13 +71,12 @@ namespace LipheBot.Infra.Twitch
 
         }
 
-        private void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
+        public void WireUpCommandReceivedUpEventHandler(Action<IChatClient, CommandReceivedEventArgs> eventHandler)
         {
-            OnCommandReceived?.Invoke(this,e.ToCommandReceivedEventArgs());
+            _twitchClient.OnChatCommandReceived += 
+                (sender, args) => eventHandler(this, args.ToCommandReceivedEventArgs());
         }
-
         
-
 
         private void TwitchClientOnDisconnected(object sender, OnDisconnectedArgs e)
         {
@@ -84,10 +85,7 @@ namespace LipheBot.Infra.Twitch
             
         }
 
-        private void TwitchClientOnNewSubscriber(object sender, OnNewSubscriberArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
+       
 
         private void TwitchClientOnConnected(object sender, OnConnectedArgs e)
         {
@@ -107,8 +105,11 @@ namespace LipheBot.Infra.Twitch
         }
 
 
+      
 
-        public event EventHandler<CommandReceivedEventArgs> OnCommandReceived;
+
+
+
 
 
 
