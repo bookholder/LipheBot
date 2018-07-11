@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using LipheBot.Core.Automation;
 
 namespace LipheBot.Core
@@ -21,6 +22,11 @@ namespace LipheBot.Core
             ConnectChantClients();
             WireUpEventHandlers();
             
+        }
+
+        public async Task Stop()
+        {
+            await DisconnectChatClients();
         }
 
         private void ConnectChantClients()
@@ -52,12 +58,20 @@ namespace LipheBot.Core
             }
         }
 
-        public void DisconnectChatClients()
+        private async Task DisconnectChatClients()
         {
             foreach (var chatclient in _chatClients)
             {
-               chatclient.Disconnect();
+                chatclient.SendMessage("Liphe is leaving for now, chill out!");
             }
+
+            var disconnectedTasks = new List<Task>();
+            foreach (var chatclient in _chatClients)
+            {
+                disconnectedTasks.Add(chatclient.Disconnect());
+            }
+
+            await Task.WhenAll(disconnectedTasks);
         }
 
     }

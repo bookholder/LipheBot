@@ -3,6 +3,7 @@ using LipheBot.Infra.Twitch;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 
@@ -22,12 +23,15 @@ namespace LipheBot
             InitializeBot();
             
             Console.Write("Press ESC key to quit");
+            Console.ReadLine();
+            Disconnect().Wait();
+            Console.ReadLine();
             
-            while (true)
+            //while (true)
 
-            {
-                ConsoleCommands(Console.ReadKey().Key);
-            }
+            //{
+            //    ConsoleCommands(Console.ReadKey().Key);
+            //}
 
 
         }
@@ -46,13 +50,18 @@ namespace LipheBot
             List<IChatClient> chatClients = new List<IChatClient>
 
             {
-                new ConsoleChatClient(),
+                
                 new TwitchChatClient(settings),
             };
             _lipheBot = new BotMain(chatClients);
 
             _lipheBot.Run();
 
+        }
+        
+        private static async Task Disconnect()
+        {
+            await _lipheBot.Stop();
         }
 
         private static void InitializeConfiguration()

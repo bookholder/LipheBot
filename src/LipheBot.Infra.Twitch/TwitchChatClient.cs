@@ -19,8 +19,8 @@ namespace LipheBot.Infra.Twitch
         //private readonly TwitchClientSettings _settings;
         private  readonly JoinedChannel _joinedChannel;
         
-        private readonly TaskCompletionSource<bool> _connectionCompletionTask = new TaskCompletionSource<bool>();
-        private readonly TaskCompletionSource<bool> _disconnectionCompletionTask = new TaskCompletionSource<bool>();
+        private  TaskCompletionSource<bool> _connectionCompletionTask = new TaskCompletionSource<bool>();
+        private  TaskCompletionSource<bool> _disconnectionCompletionTask = new TaskCompletionSource<bool>();
         private bool _isReady;
 
         
@@ -46,7 +46,7 @@ namespace LipheBot.Infra.Twitch
             switch (e.ChatMessage.Message)
             {
                 case "noob":
-                    SendMessage($"{e.ChatMessage.Username} No, You're a noob! Kappa");
+                    SendMessage($"{e.ChatMessage.Username} No, you're a noob! Kappa");
                     break;
             }//TODO: A way to do this outside of the twitch class.
         }
@@ -81,8 +81,14 @@ namespace LipheBot.Infra.Twitch
         private void TwitchClientOnDisconnected(object sender, OnDisconnectedArgs e)
         {
             
-            SendMessage("Liphe is leaving for now, chill out");
             
+            _twitchClient.OnDisconnected -= TwitchClientOnDisconnected;
+            _isReady = false;
+            _disconnectionCompletionTask.SetResult(true);
+            _connectionCompletionTask = new TaskCompletionSource<bool>();
+            SendMessage("Liphe is leaving for now, chill out");
+
+
         }
 
        
@@ -91,6 +97,9 @@ namespace LipheBot.Infra.Twitch
         {
             _isReady = true;
             _twitchClient.OnConnected -= TwitchClientOnConnected;
+            _connectionCompletionTask.SetResult(true);
+            
+            _disconnectionCompletionTask = new TaskCompletionSource<bool>();
             SendMessage("LipheBot has arrived!");
         }
 

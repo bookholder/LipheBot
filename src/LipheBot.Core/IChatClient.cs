@@ -15,6 +15,7 @@ namespace LipheBot.Core
         //void SendDirectMessage(string username,string message);
         Task Disconnect();
 
+
         void WireUpCommandReceivedUpEventHandler(Action<IChatClient,CommandReceivedEventArgs> eventHandler);
 
     }
