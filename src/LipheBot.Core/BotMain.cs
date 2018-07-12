@@ -16,10 +16,10 @@ namespace LipheBot.Core
             _chatClients = chatClients;
         }
 
-        public void Run()
+        public async Task Run()
         {
            
-            ConnectChantClients();
+            await ConnectChantClients();
             WireUpEventHandlers();
             
         }
@@ -29,12 +29,17 @@ namespace LipheBot.Core
             await DisconnectChatClients();
         }
 
-        private void ConnectChantClients()
+        private async Task ConnectChantClients()
         {
-            foreach (var chatclient in _chatClients)
+            
+
+            var connectedTasks = new List<Task>();
+            foreach (var chatClient in _chatClients)
             {
-                chatclient.Connect();
+                connectedTasks.Add(chatClient.Connect());
             }
+            await Task.WhenAll(connectedTasks);
+            
         }
 
         private void WireUpEventHandlers()

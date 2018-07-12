@@ -20,18 +20,17 @@ namespace LipheBot
         private static void Main()
         {
             InitializeConfiguration();
-            InitializeBot();
             
-            Console.Write("Press ESC key to quit");
-            Console.ReadLine();
-            Disconnect().Wait();
-            Console.ReadLine();
             
-            //while (true)
+            Console.WriteLine("Type q to quit");
+            Console.WriteLine("type ? for commands");
+            
 
-            //{
-            //    ConsoleCommands(Console.ReadKey().Key);
-            //}
+            while (true)
+
+            {
+                ConsoleCommands(Console.ReadLine());
+            }
 
 
         }
@@ -40,7 +39,7 @@ namespace LipheBot
 
 
 
-        private static void InitializeBot()
+        private static async Task InitializeBot()
         {
             Console.WriteLine("Initializing LipheBot...");
             TwitchClientSettings settings = new TwitchClientSettings(
@@ -55,13 +54,16 @@ namespace LipheBot
             };
             _lipheBot = new BotMain(chatClients);
 
-            _lipheBot.Run();
+            await _lipheBot.Run();
+            Console.WriteLine("Bot initialized");
 
         }
         
-        private static async Task Disconnect()
+        private static async Task DisconnectBot()
         {
+            Console.WriteLine("Disconnecting bot...");
             await _lipheBot.Stop();
+            Console.WriteLine("Disconnected");
         }
 
         private static void InitializeConfiguration()
@@ -75,13 +77,33 @@ namespace LipheBot
         }
 
 
-    private static void ConsoleCommands(ConsoleKey key)
+    private static void ConsoleCommands(string s)
         {
-            switch (key)
+            List<string> commands = new List<string>
             {
-                case ConsoleKey.Escape:
+                "start",
+                "stop",
+                "q"
+            };
+            switch (s)
+            {
+                case "q":
                         
                     Process.GetCurrentProcess().Kill();
+                    break;
+                case "start":
+                InitializeBot().Wait();
+                break;
+
+                case "stop":
+                    DisconnectBot().Wait();
+                break;
+
+                case "?":
+                    foreach (string command in commands)
+                    {
+                        Console.WriteLine(command);
+                    }
                     break;
                 
             }
