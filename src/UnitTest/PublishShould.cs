@@ -2,7 +2,7 @@
 using LipheBot.Core.Automation;
 using Xunit;
 
-namespace UnitTest
+namespace LipheBot.Tests
 {
     public class PublishShould
     {

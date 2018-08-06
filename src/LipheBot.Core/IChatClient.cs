@@ -16,7 +16,8 @@ namespace LipheBot.Core
         Task Disconnect();
 
 
-        void WireUpCommandReceivedUpEventHandler(Action<IChatClient,CommandReceivedEventArgs> eventHandler);
+        void WireUpCommandReceivedEventHandler(Action<IChatClient,CommandReceivedEventArgs> eventHandler);
 
+        void WireUpChatReceivedMessageEventHandler(Action<IChatClient, ChatMessageReceivedArgs> eventHandler);
     }
 }

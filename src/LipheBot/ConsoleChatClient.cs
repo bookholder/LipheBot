@@ -29,5 +29,10 @@ namespace LipheBot
         {
             
         }
+
+        public void WireUpChatReceivedMessageEventHandler(Action<IChatClient, ChatMessageReceivedArgs> eventHandler)
+        {
+            //
+        }
     }
 }

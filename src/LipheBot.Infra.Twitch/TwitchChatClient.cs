@@ -16,7 +16,7 @@ namespace LipheBot.Infra.Twitch
     {
         
         private readonly ITwitchClient _twitchClient;
-        //private readonly TwitchClientSettings _settings;
+        private readonly TwitchClientSettings _settings;
         private  readonly JoinedChannel _joinedChannel;
         
         private  TaskCompletionSource<bool> _connectionCompletionTask = new TaskCompletionSource<bool>();
@@ -27,19 +27,17 @@ namespace LipheBot.Infra.Twitch
 
         public TwitchChatClient(TwitchClientSettings settings)
         {
-            
-             _joinedChannel = new JoinedChannel(settings.TwitchChannel);
-             var credentials = new ConnectionCredentials(settings.TwitchUsername, settings.TwitchBotOAuth); 
+            _settings = settings;
+             _joinedChannel = new JoinedChannel(_settings.TwitchChannel);
+             var credentials = new ConnectionCredentials(_settings.TwitchUsername, _settings.TwitchBotOAuth); 
             _twitchClient = new TwitchClient();
             _twitchClient.Initialize(credentials, _joinedChannel.Channel);
-            _twitchClient.OnMessageReceived += _twitchClient_OnMessageReceived;
-            _twitchClient.OnChatCommandReceived += _twitchClient_OnChatCommandReceived;
-        }
-
-        private void _twitchClient_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
-        {
+            
+            
             
         }
+
+        
 
         private void _twitchClient_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
@@ -71,7 +69,7 @@ namespace LipheBot.Infra.Twitch
 
         }
 
-        public void WireUpCommandReceivedUpEventHandler(Action<IChatClient, CommandReceivedEventArgs> eventHandler)
+        public void WireUpCommandReceivedEventHandler(Action<IChatClient, CommandReceivedEventArgs> eventHandler)
         {
             _twitchClient.OnChatCommandReceived += 
                 (sender, args) => eventHandler(this, args.ToCommandReceivedEventArgs());
@@ -113,14 +111,10 @@ namespace LipheBot.Infra.Twitch
            
         }
 
-
-      
-
-
-
-
-
-
-
+        public void WireUpChatReceivedMessageEventHandler(Action<IChatClient, ChatMessageReceivedArgs> eventHandler)
+        {
+            _twitchClient.OnMessageReceived +=
+                (sender, args) => eventHandler(this,args.ToMessageReceivedEventArgs());
+        }
     }
 }

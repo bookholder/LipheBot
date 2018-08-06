@@ -14,5 +14,17 @@ namespace LipheBot.Infra.Twitch
             };
             return commandReceivedEventArgs;
         }
+
+        public static ChatMessageReceivedArgs ToMessageReceivedEventArgs(this OnMessageReceivedArgs src)
+        {
+            var chatMessageReceivedEventArgs = new ChatMessageReceivedArgs
+            {
+                Message = src.ChatMessage.Message,
+                Username = src.ChatMessage.Username,
+               
+            };
+
+            return chatMessageReceivedEventArgs;
+        }
     }
 }

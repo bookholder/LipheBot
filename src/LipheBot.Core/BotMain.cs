@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LipheBot.Core.Automation;
 
@@ -14,6 +12,10 @@ namespace LipheBot.Core
         public BotMain(List<IChatClient> chatClients)
         {
             _chatClients = chatClients;
+        }
+        public BotMain()
+        {
+            _chatClients = new List<IChatClient>();
         }
 
         public async Task Run()
@@ -46,7 +48,8 @@ namespace LipheBot.Core
         {
             foreach (var chatclient in _chatClients)
             {
-                chatclient.WireUpCommandReceivedUpEventHandler(CommandReceivedHandler);
+                chatclient.WireUpCommandReceivedEventHandler(CommandReceivedHandler);
+                chatclient.WireUpChatReceivedMessageEventHandler(ChatMessageReceivedHandler);
             }
         }
 
@@ -58,8 +61,17 @@ namespace LipheBot.Core
             switch (args.CommandWord)
             {
                 case "liphe":
-                    chatClient.SendMessage($"@{args.Username}, I'm still in devolpment");
+                    chatClient.SendMessage($"@{args.Username}, I'm still in development");
                 break;
+            }
+        }
+        private void ChatMessageReceivedHandler(IChatClient chatClient,ChatMessageReceivedArgs args)
+        {
+            switch (args.Message.ToLower())
+            {
+                case "noob":
+                    chatClient.SendMessage($"@{args.Username}, Im not too good at this game");
+                 break;
             }
         }
 

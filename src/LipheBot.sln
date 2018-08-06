@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LipheBot", "LipheBot\LipheBot.csproj", "{03614844-1F1F-42D4-9095-FC9F73108B3B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{84BA2B76-D609-46D2-88E6-A8F93496276E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LipheBot.Core", "LipheBot.Core\LipheBot.Core.csproj", "{9B52D7B0-50F9-4219-B93D-5ADB766830A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LipheBot.Core", "LipheBot.Core\LipheBot.Core.csproj", "{9B52D7B0-50F9-4219-B93D-5ADB766830A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liphebot.Infra.Twitch", "Liphebot.Infra.Twitch\Liphebot.Infra.Twitch.csproj", "{C97970C3-2549-464D-837E-1B365A771D83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liphebot.Infra.Twitch", "Liphebot.Infra.Twitch\Liphebot.Infra.Twitch.csproj", "{C97970C3-2549-464D-837E-1B365A771D83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LipheBotTests", "LipheBotTests\LipheBotTests.csproj", "{D2DF2DB2-A1AF-4478-B940-7D485F1DF811}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{03614844-1F1F-42D4-9095-FC9F73108B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03614844-1F1F-42D4-9095-FC9F73108B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03614844-1F1F-42D4-9095-FC9F73108B3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84BA2B76-D609-46D2-88E6-A8F93496276E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84BA2B76-D609-46D2-88E6-A8F93496276E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84BA2B76-D609-46D2-88E6-A8F93496276E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84BA2B76-D609-46D2-88E6-A8F93496276E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B52D7B0-50F9-4219-B93D-5ADB766830A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B52D7B0-50F9-4219-B93D-5ADB766830A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B52D7B0-50F9-4219-B93D-5ADB766830A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{C97970C3-2549-464D-837E-1B365A771D83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C97970C3-2549-464D-837E-1B365A771D83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C97970C3-2549-464D-837E-1B365A771D83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2DF2DB2-A1AF-4478-B940-7D485F1DF811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2DF2DB2-A1AF-4478-B940-7D485F1DF811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2DF2DB2-A1AF-4478-B940-7D485F1DF811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2DF2DB2-A1AF-4478-B940-7D485F1DF811}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
