@@ -18,9 +18,6 @@ namespace LipheBotTests
            
         }
 
-        public void Run()
-        {
-            var botMain = new BotMain();
-        }
+        
     }
 }
