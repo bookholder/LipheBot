@@ -21,7 +21,7 @@ namespace LipheBot.Core
         public async Task Run()
         {
            
-            await ConnectChantClients();
+            await ConnectChatClients();
             WireUpEventHandlers();
             
         }
@@ -31,7 +31,7 @@ namespace LipheBot.Core
             await DisconnectChatClients();
         }
 
-        private async Task ConnectChantClients()
+        private async Task ConnectChatClients()
         {
             
 

@@ -19,12 +19,19 @@ namespace LipheBot
 
         private static void Main()
         {
+            
+            Console.WriteLine("Available bot commands : start, stop, exit");
+            Console.WriteLine("================================================");
+            
+
             InitializeConfiguration();
+            InitializeBot().Wait();
+
+           
             
-            
-            Console.WriteLine("Type q to quit");
-            Console.WriteLine("type ? for commands");
-            
+
+
+
 
             while (true)
 
@@ -41,7 +48,9 @@ namespace LipheBot
 
         private static async Task InitializeBot()
         {
+            
             Console.WriteLine("Initializing LipheBot...");
+            
             TwitchClientSettings settings = new TwitchClientSettings(
                 $"{Configuration["TwitchChatClient:twitchUsername"]}",
                 $"{Configuration["TwitchChatClient:twitchOAuth"]}",
@@ -49,13 +58,16 @@ namespace LipheBot
             List<IChatClient> chatClients = new List<IChatClient>
 
             {
-                
+                new ConsoleChatClient(),
                 new TwitchChatClient(settings),
             };
             _lipheBot = new BotMain(chatClients);
 
             await _lipheBot.Run();
+            
             Console.WriteLine("Bot initialized");
+            
+
 
         }
         
@@ -83,11 +95,11 @@ namespace LipheBot
             {
                 "start",
                 "stop",
-                "q"
+                "exit"
             };
             switch (s)
             {
-                case "q":
+                case "exit":
                         
                     Process.GetCurrentProcess().Kill();
                     break;

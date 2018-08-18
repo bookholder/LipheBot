@@ -6,11 +6,16 @@ namespace LipheBot
 {
     public class ConsoleChatClient : IChatClient
     {
-        public void SendMessage(string message) => Console.WriteLine(message);
+
+        private TaskCompletionSource<bool> _connectionCompletionTask = new TaskCompletionSource<bool>();
+        private TaskCompletionSource<bool> _disconnectionCompletionTask = new TaskCompletionSource<bool>();
+        public void SendMessage(string message) => Console.WriteLine("Bot: " + message);
 
         public async Task Connect()
         {
-            //
+            SendMessage("LipheBot has arrived");
+            _connectionCompletionTask.SetResult(true);
+            await _connectionCompletionTask.Task;
         }
 
         public async Task Disconnect()

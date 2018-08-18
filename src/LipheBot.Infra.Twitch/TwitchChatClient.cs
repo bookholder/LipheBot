@@ -39,15 +39,7 @@ namespace LipheBot.Infra.Twitch
 
         
 
-        private void _twitchClient_OnMessageReceived(object sender, OnMessageReceivedArgs e)
-        {
-            switch (e.ChatMessage.Message)
-            {
-                case "noob":
-                    SendMessage($"{e.ChatMessage.Username} No, you're a noob! Kappa");
-                    break;
-            }//TODO: A way to do this outside of the twitch class.
-        }
+       
 
         public async Task Connect()
         {
